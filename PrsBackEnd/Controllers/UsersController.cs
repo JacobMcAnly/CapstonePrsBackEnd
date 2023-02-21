@@ -9,7 +9,7 @@ using PrsBackEnd.Models;
 
 namespace PrsBackEnd.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -19,6 +19,36 @@ namespace PrsBackEnd.Controllers
         {
             _context = context;
         }
+
+        //[Route("/login")]
+        //[HttpPost]
+        //public async Task<ActionResult<User>> LoginUser(string userName, string password)
+        //{
+        //    var user = await _context.Users.Where(u => u.Username == userName && u.Password == password).FirstOrDefaultAsync();
+
+        //    if (user == null)
+        //    {
+        //        return NotFound(); //404
+        //    }
+        //    return user; // best practice: only return whats needed
+        //}
+        [Route("/login")]
+        [HttpPost]
+        public async Task<ActionResult<User>> LoginUser([FromBody] UserPasswordObject upo)
+        {
+            var user = await _context.Users.Where(u => u.Username == upo.username && u.Password == upo.password).FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return NotFound();  // 404
+            }
+
+            return user;
+
+            //return new { Firstname = user.Firstname, Lastname = user.Lastname, Id = user.Id, IsAdmin = user.IsAdmin }; //best practice: only return what's needed!
+        }
+
+
 
         // GET: api/Users
         [HttpGet]
