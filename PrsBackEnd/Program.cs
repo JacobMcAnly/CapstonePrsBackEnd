@@ -7,12 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-//.AddJsonOptions(Options =>
-// {
-//     Options.JasonSerializerOptions.PropertyNamingPolicy = null;
-// });
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+ {
+     options.JsonSerializerOptions.PropertyNamingPolicy = null;
+ });
 
-builder.Services.AddControllers();
+
+//  .AddXmlSerializerFormatters()
 
 builder.Services.AddDbContext<PrsDbContext>(
         //lambda
