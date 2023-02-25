@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PrsBackEnd.Models
 {
@@ -8,6 +10,13 @@ namespace PrsBackEnd.Models
         public int Id { get; set; }
         public int RequestId { get; set; }
         public int Productid { get; set; }
-        public int Quantity { get; set; }
+
+        [Required]
+        public int Quantity { get; set; } = 1;
+
+       // [JsonIgnore]
+        //public Request Request { get; set; }
+
+        //public Product Product { get; set; }
     }
 }

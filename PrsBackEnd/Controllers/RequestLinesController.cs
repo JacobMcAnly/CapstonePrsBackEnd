@@ -10,7 +10,7 @@ using PrsBackEnd.Models;
 
 namespace PrsBackEnd.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class RequestLinesController : ControllerBase
     {
@@ -21,14 +21,14 @@ namespace PrsBackEnd.Controllers
             _context = context;
         }
 
-        // GET: api/RequestLines
-        [HttpGet]
+        // GET: RequestLines
+        [HttpGet] //Attribute
         public async Task<ActionResult<IEnumerable<RequestLine>>> GetRequestLines()
         {
             return await _context.RequestLines.ToListAsync();
         }
 
-        // GET: api/RequestLines/5
+        // GET: RequestLines/5
         [HttpGet("{id}")]
         public async Task<ActionResult<RequestLine>> GetRequestLine(int id)
         {
@@ -42,7 +42,7 @@ namespace PrsBackEnd.Controllers
             return requestLine;
         }
 
-        // PUT: api/RequestLines/5
+        // PUT: RequestLines/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRequestLine(int id, RequestLine requestLine)
@@ -73,7 +73,7 @@ namespace PrsBackEnd.Controllers
             return NoContent();
         }
 
-        // POST: api/RequestLines
+        // POST: RequestLines
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<RequestLine>> PostRequestLine(RequestLine requestLine)
@@ -84,7 +84,7 @@ namespace PrsBackEnd.Controllers
             return CreatedAtAction("GetRequestLine", new { id = requestLine.Id }, requestLine);
         }
 
-        // DELETE: api/RequestLines/5
+        // DELETE: RequestLines/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRequestLine(int id)
         {

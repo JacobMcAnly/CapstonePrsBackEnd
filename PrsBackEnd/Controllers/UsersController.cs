@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,23 +33,7 @@ namespace PrsBackEnd.Controllers
         //    }
         //    return user; // best practice: only return whats needed
         //}
-        [Route("/login")]
-        [HttpPost]
-        public async Task<ActionResult<User>> LoginUser([FromBody] UserPasswordObject upo)
-        {
-            var user = await _context.Users.Where(u => u.Username == upo.username && u.Password == upo.password).FirstOrDefaultAsync();
-
-            if (user == null)
-            {
-                return NotFound();  // 404
-            }
-
-            return user;
-
-            //return new { Firstname = user.Firstname, Lastname = user.Lastname, Id = user.Id, IsAdmin = user.IsAdmin }; //best practice: only return what's needed!
-        }
-
-
+        
 
         // GET: api/Users
         [HttpGet]
@@ -133,5 +118,24 @@ namespace PrsBackEnd.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
+
+        [Route("/login")]
+        [HttpPost]
+        public async Task<ActionResult<User>> LoginUser([FromBody] UserPasswordObject upo)
+        {
+            var user = await _context.Users.Where(u => u.Username == upo.username && u.Password == upo.password).FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return NotFound();  // 404
+            }
+
+            return user;
+
+            //return new { Firstname = user.Firstname, Lastname = user.Lastname, Id = user.Id, IsAdmin = user.IsAdmin }; //best practice: only return what's needed!
+
+            // return new { Id = user.Id, Firstname = user.Firstname, Lastname = user.Lastname, LogOnTime = DateTime.Now}
+        }
+
     }
 }

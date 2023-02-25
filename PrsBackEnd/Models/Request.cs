@@ -31,5 +31,11 @@ namespace PrsBackEnd.Models
         public decimal Total { get; set; }
 
         public int UserId { get; set; }
+
+        // Entity Framework Relation property
+        [ForeignKey(nameof(UserId))]
+        public User User { get; set; } //data type user w/ variable 'user'
+
+        //public List<RequestLine> RequestLines { get; set; }
     }
 }

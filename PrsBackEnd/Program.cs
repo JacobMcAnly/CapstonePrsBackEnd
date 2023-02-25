@@ -5,12 +5,14 @@ using PrsBackEnd.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Program.cs builds/runs program
+
 // Add services to the container.
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
  {
-     options.JsonSerializerOptions.PropertyNamingPolicy = null;
+     options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
  });
 
 
@@ -18,7 +20,7 @@ builder.Services.AddControllers()
 
 builder.Services.AddDbContext<PrsDbContext>(
         //lambda
-        options => options.UseSqlServer(builder.Configuration.GetConnectionString("PrsConnectionString"))
+        options => options.UseSqlServer(builder.Configuration.GetConnectionString("PrsConnectionString")) 
     );
 
 
