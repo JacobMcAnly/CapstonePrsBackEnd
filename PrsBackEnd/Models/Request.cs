@@ -20,7 +20,7 @@ namespace PrsBackEnd.Models
         [StringLength(20)]
         public string DeliveryMode { get; set; }
 
-        public DateTime SubmittedDate { get; set; }
+        public DateTime SubmittedDate { get; set; } = DateTime.Now;
 
         public DateTime DateNeeded { get; set; }
 
@@ -34,7 +34,7 @@ namespace PrsBackEnd.Models
 
         // Entity Framework Relation property
         [ForeignKey(nameof(UserId))]
-        public User User { get; set; } //data type user w/ variable 'user'
+        public User? User { get; set; } //data type user w/ variable 'user'
 
         //public List<RequestLine> RequestLines { get; set; }
     }
