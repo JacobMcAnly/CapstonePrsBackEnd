@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PrsBackEnd.Models;
 
 namespace PrsBackEnd.Models
 {
@@ -12,5 +13,11 @@ namespace PrsBackEnd.Models
         public PrsDbContext(DbContextOptions<PrsDbContext> options) : base(options)
         {
         }
+
+        // constructor to support dependency injection (via a service)
+        public DbSet<PrsBackEnd.Models.Request> Requests { get; set; }
+
+        // constructor to support dependency injection (via a service)
+        public DbSet<PrsBackEnd.Models.RequestLine> RequestLines { get; set; }
     }
 }
