@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.CodeAnalysis;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,7 +16,11 @@ namespace PrsBackEnd.Models
         public int Quantity { get; set; } = 1;
 
 
-       // [JsonIgnore]
+
+
+
+
+        // [JsonIgnore]
         //public Request Request { get; set; }
 
         //public Product Product { get; set; }

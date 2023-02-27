@@ -117,6 +117,7 @@ namespace PrsBackEnd.Controllers
             return _context.Requests.Any(e => e.Id == id);
         }
 
+        //Approve Request
         [HttpPut]
         [Route("/approve")]
         public async Task<IActionResult> Approve([FromBody] Request approvedRequest)
@@ -153,6 +154,7 @@ namespace PrsBackEnd.Controllers
             
         }
 
+        //Re-open Request
         [HttpPut]
         [Route("/re-open")]
         public async Task<IActionResult> Reopen([FromBody] Request reopenRequest)
@@ -171,6 +173,8 @@ namespace PrsBackEnd.Controllers
             return Ok(request);
         }
 
+
+        //Submit Request for Review
         [HttpPut]
         [Route("/submit-for-review")]
         public async Task<IActionResult> Review([FromBody] Request reviewRequest)
@@ -178,28 +182,19 @@ namespace PrsBackEnd.Controllers
             var request = await _context.Requests.FindAsync(reviewRequest.Id);
 
             if (request == null)
-            {
-                return NotFound();
-            }
-
-            if (request.Total <= 50 )
-            {
-                request.Status = APPROVED;
-                request.SubmittedDate = DateTime.Now;
-            } 
-            else
-            {
-                request.Status = REVIEW;
-                request.SubmittedDate = DateTime.Now;
-            }
-
-            await _context.SaveChangesAsync();
-
-            return Ok(request);
-
-
+        {
+            return NotFound();
         }
 
+        request.Status = request.Total <= 50 ? APPROVED : REVIEW;
+        request.SubmittedDate = DateTime.Now;
+
+        await _context.SaveChangesAsync();
+
+        return Ok(request);
+        }
+
+        //Get a list of Request where status = review || User can't view their own request
         [HttpGet]
         [Route("/list-review/{userId}")]
         public async Task<ActionResult<IEnumerable<Request>>> getRequestsForReview(int userId)
@@ -207,6 +202,22 @@ namespace PrsBackEnd.Controllers
             return await _context.Requests.Include(r => r.User)
                    .Where(r => r.Status.Equals("Review") &&! r.UserId.Equals(userId))
                    .ToListAsync();
+        }
+
+        /*
+        Get list of RequestLines by RequestId
+        retrieve RequestLines by a single RequestID
+        not searching by the primary key(but on the RequestID)
+        */
+        [HttpGet]
+        [Route("/requests/requestlines")]
+        public async Task<List<RequestLine>> GetRequestLinesByRequestId(int requestId)
+        {
+            List<RequestLine> requestLines = await _context.RequestLines
+                .Where(r => r.RequestId == requestId)
+                .ToListAsync();
+
+            return requestLines;
         }
 
     }
