@@ -200,9 +200,6 @@ namespace PrsBackEnd.Controllers
 
         }
 
-        //return a list of requests where the status = review
-        //This is what I have
-
         [HttpGet]
         [Route("/list-review/{userId}")]
         public async Task<ActionResult<IEnumerable<Request>>> getRequestsForReview(int userId)
