@@ -185,6 +185,7 @@ namespace PrsBackEnd.Controllers
             if (request.Total <= 50 )
             {
                 request.Status = APPROVED;
+                request.SubmittedDate = DateTime.Now;
             } 
             else
             {
@@ -198,6 +199,18 @@ namespace PrsBackEnd.Controllers
 
 
         }
-        
+
+        //return a list of requests where the status = review
+        //This is what I have
+
+        [HttpGet]
+        [Route("/list-review/{userId}")]
+        public async Task<ActionResult<IEnumerable<Request>>> getRequestsForReview(int userId)
+        {
+            return await _context.Requests.Include(r => r.User)
+                   .Where(r => r.Status.Equals("Review") &&! r.UserId.Equals(userId))
+                   .ToListAsync();
+        }
+
     }
 }

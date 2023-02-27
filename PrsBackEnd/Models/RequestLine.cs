@@ -14,6 +14,7 @@ namespace PrsBackEnd.Models
         [Required]
         public int Quantity { get; set; } = 1;
 
+
        // [JsonIgnore]
         //public Request Request { get; set; }
 
