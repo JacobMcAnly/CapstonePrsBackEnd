@@ -65,7 +65,7 @@ namespace PrsBackEnd.Controllers
             {
                 await _context.SaveChangesAsync();
 
-                //await RecalcRequestTotal(requestLine.RequestId);
+                await RecalcRequestTotal(requestLine.RequestId);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -90,7 +90,7 @@ namespace PrsBackEnd.Controllers
             _context.RequestLines.Add(requestLine);
             await _context.SaveChangesAsync();
 
-            //await RecalcRequestTotal(requestLine.RequestId);
+            await RecalcRequestTotal(requestLine.RequestId);
 
             return CreatedAtAction("GetRequestLine", new { id = requestLine.Id }, requestLine);
         }
@@ -108,7 +108,7 @@ namespace PrsBackEnd.Controllers
             _context.RequestLines.Remove(requestLine);
             await _context.SaveChangesAsync();
 
-            //await RecalcRequestTotal(requestLine.RequestId);
+            await RecalcRequestTotal(requestLine.RequestId);
 
             return NoContent();
         }
@@ -133,7 +133,7 @@ namespace PrsBackEnd.Controllers
         }
 
         // Recalculate Request Total - every create, update, or delete on a RequestLine should trigger a recalculateTotal on the associated Request
-        private async void RecalcRequestTotal(int requestId)
+        private async Task RecalcRequestTotal(int requestId)
         {
             // get the total
             var total = await _context.RequestLines
