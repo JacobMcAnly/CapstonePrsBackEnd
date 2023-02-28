@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿// using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,7 +25,7 @@ namespace PrsBackEnd.Models
 
         public DateTime SubmittedDate { get; set; } = DateTime.Now;
 
-        public DateTime DateNeeded { get; set; }
+        public DateTime DateNeeded { get; set; } // Java return date not dateTime
 
         [StringLength(10)]
         public string Status { get; set; }
@@ -31,6 +33,7 @@ namespace PrsBackEnd.Models
         [Column(TypeName = "decimal(11,2)")]
         public decimal Total { get; set; }
 
+        [JsonIgnore]
         public int UserId { get; set; }
 
         // Entity Framework Relation property

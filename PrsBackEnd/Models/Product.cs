@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PrsBackEnd.Models
 {
@@ -23,6 +24,7 @@ namespace PrsBackEnd.Models
         [StringLength(255)]
         public string? PhotoPath { get; set; }
 
+        [JsonIgnore]
         public int VendorId { get; set; }
 
         public Vendor Vendor { get; set; }

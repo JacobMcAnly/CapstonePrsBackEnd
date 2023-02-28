@@ -204,21 +204,5 @@ namespace PrsBackEnd.Controllers
                    .ToListAsync();
         }
 
-        /*
-        Get list of RequestLines by RequestId
-        retrieve RequestLines by a single RequestID
-        not searching by the primary key(but on the RequestID)
-        */
-        [HttpGet]
-        [Route("/requests/requestlines")]
-        public async Task<List<RequestLine>> GetRequestLinesByRequestId(int requestId)
-        {
-            List<RequestLine> requestLines = await _context.RequestLines
-                .Where(r => r.RequestId == requestId)
-                .ToListAsync();
-
-            return requestLines;
-        }
-
     }
 }
