@@ -90,7 +90,7 @@ namespace PrsBackEnd.Controllers
             _context.RequestLines.Add(requestLine);
             await _context.SaveChangesAsync();
 
-            await RecalcRequestTotal(requestLine.RequestId);
+           await RecalcRequestTotal(requestLine.RequestId);
 
             return CreatedAtAction("GetRequestLine", new { id = requestLine.Id }, requestLine);
         }
@@ -139,7 +139,7 @@ namespace PrsBackEnd.Controllers
             var total = await _context.RequestLines
                 .Where(rl => rl.RequestId == requestId)
                 .Include(rl => rl.Product)
-                .Select(rl => new { linetotal = rl.Quantity * rl.Product.Price })
+                .Select(rl => new { linetotal = (rl.Product.Price) * (rl.Quantity) }) //source of all evil
             .SumAsync(s => s.linetotal);
             //Find request
             var theRequest = await _context.Requests.FindAsync(requestId);

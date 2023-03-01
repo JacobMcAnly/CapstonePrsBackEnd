@@ -1,4 +1,4 @@
-﻿// using Newtonsoft.Json;
+﻿
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
@@ -21,22 +21,21 @@ namespace PrsBackEnd.Models
         public string? RejectionReason { get; set; }
 
         [StringLength(20)]
-        public string DeliveryMode { get; set; }
+        public string DeliveryMode { get; set; } = "Pickup";
 
         public DateTime SubmittedDate { get; set; } = DateTime.Now;
 
         public DateTime DateNeeded { get; set; } // Java return date not dateTime
 
         [StringLength(10)]
-        public string Status { get; set; }
+        public string Status { get; set; } = "New";
 
         [Column(TypeName = "decimal(11,2)")]
         public decimal Total { get; set; }
 
-        [JsonIgnore]
+        
         public int UserId { get; set; }
 
-        // Entity Framework Relation property
         [ForeignKey(nameof(UserId))]
         public User? User { get; set; } //data type user w/ variable 'user'
 

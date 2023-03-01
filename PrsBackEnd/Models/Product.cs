@@ -23,11 +23,11 @@ namespace PrsBackEnd.Models
 
         [StringLength(255)]
         public string? PhotoPath { get; set; }
-
-        [JsonIgnore]
+        
         public int VendorId { get; set; }
 
-        public Vendor Vendor { get; set; }
+        [ForeignKey(nameof(VendorId))]
+        public Vendor? Vendor { get; set; }
 
     }
 }
