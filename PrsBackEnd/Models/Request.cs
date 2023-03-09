@@ -33,7 +33,6 @@ namespace PrsBackEnd.Models
         [Column(TypeName = "decimal(11,2)")]
         public decimal Total { get; set; }
 
-        
         public int UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]

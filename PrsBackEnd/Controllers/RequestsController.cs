@@ -197,10 +197,10 @@ namespace PrsBackEnd.Controllers
         //Get a list of Request where status = review || User can't view their own request
         [HttpGet]
         [Route("/list-review/{userId}")]
-        public async Task<ActionResult<IEnumerable<Request>>> getRequestsForReview(int userId)
+        public async Task<ActionResult<IEnumerable<Request>>> GetRequestsForReview(int userId)
         {
             return await _context.Requests.Include(r => r.User)
-                   .Where(r => r.Status.Equals("Review") &&! r.UserId.Equals(userId))
+                   .Where(r => r.Status.Equals("Review") && (!r.UserId.Equals(userId) && (r.User.IsReviewer || r.User.IsAdmin)))
                    .ToListAsync();
         }
 

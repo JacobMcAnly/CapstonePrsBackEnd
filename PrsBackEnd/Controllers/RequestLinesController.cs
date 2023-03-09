@@ -139,7 +139,7 @@ namespace PrsBackEnd.Controllers
             var total = await _context.RequestLines
                 .Where(rl => rl.RequestId == requestId)
                 .Include(rl => rl.Product)
-                .Select(rl => new { linetotal = (rl.Product.Price) * (rl.Quantity) }) //source of all evil
+                .Select(rl => new { linetotal = (rl.Quantity) * (rl.Product.Price)}) // Source of all evil = * 
             .SumAsync(s => s.linetotal);
             //Find request
             var theRequest = await _context.Requests.FindAsync(requestId);

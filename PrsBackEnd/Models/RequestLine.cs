@@ -11,7 +11,8 @@ namespace PrsBackEnd.Models
         [Key]
         public int Id { get; set; }
 
-       [ForeignKey(nameof(RequestId))]
+       // [JsonIgnore]
+        [ForeignKey(nameof(RequestId))]
         public Request? Request { get; set; }
 
         public int RequestId { get; set; }
